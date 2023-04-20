@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { logoSrc } from "../Utils/data";
 
-const Cards = ({ setPairsFound }) => {
+const Cards = ({ setPairsFound , setTotalAttempts }) => {
   const [imgArray, setImgArray] = useState([]);
   const [firstCard, setFirstCard] = useState(null);
   const [clickedCard, setClickedCard] = useState(null);
@@ -17,6 +17,7 @@ const Cards = ({ setPairsFound }) => {
     [logoSrc]
   );
   const handleClick = (e, i) => {
+    setTotalAttempts( (total)=> total+= 1 )
     if (preventClick || e.className.includes("flip")) {
       return;
     }
@@ -59,7 +60,7 @@ const Cards = ({ setPairsFound }) => {
             className="group md:h-[130px] md:w-[130px]  h-[90px] w-[90px] duration-300  [perspective:1000px]"
           >
             <div
-              className={`relative h-full w-full bg-white/60 shadow-xl transition-all duration-500
+              className={`relative h-full w-full bg-white/80 shadow-xl transition-all duration-500
                        cursor-default [transform-style:preserve-3d] rounded-xl`}
             >
               <div className="p-1">
