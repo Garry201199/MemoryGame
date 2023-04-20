@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.box{
+  box-shadow:
+  10.4px 4px 31.6px rgba(0, 0, 0, 0.038),
+  21px 8.1px 77.8px rgba(0, 0, 0, 0.045),
+  36.9px 14.2px 132.9px rgba(0, 0, 0, 0.049),
+  83px 32px 202px rgba(0, 0, 0, 0.05)
+;}
+
+.flip {
+  @apply [transform:rotateY(180deg)] [transform-style:preserve-3d]  ;
+}
+
+.preventClick {
+  @apply cursor-default  ;
+}
