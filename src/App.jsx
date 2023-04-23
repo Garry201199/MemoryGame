@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Cards from "./Comp/Cards";
-import Confetti from "react-dom-confetti";
 import cheer from "./Assets/cheers.mp3";
+import Confetti from "react-confetti";
 function App() {
   const cheerRef = useRef();
   const [pairsFound, setPairsFound] = useState(0);
@@ -45,18 +45,19 @@ function App() {
                 alt="cheemsWait"
               />
             )}
+
             <h1 className=" headFont text-slate-100 mb-3 font-semibold tracking-tight text-sm md:text-base ">
               Ready to play the game?{" "}
             </h1>
             <button
               onClick={() => handleStartGame()}
-              class="group transition-all duration-300 ease-in rounded-2xl md:h-12 h-8 w-48 bg-green-600 font-bold text-lg text-white relative overflow-hidden "
+              className="group transition-all duration-300 ease-in rounded-2xl md:h-12 h-8 w-48 bg-green-600 font-bold text-lg text-white relative overflow-hidden "
             >
               {gameInitiated && gameInitiated ? (
                 <div role="status">
                   <svg
                     aria-hidden="true"
-                    class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-500"
+                    className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-500"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -70,12 +71,12 @@ function App() {
                       fill="currentFill"
                     />
                   </svg>
-                  <span class="sr-only">Loading...</span>
+                  <span className="sr-only">Loading...</span>
                 </div>
               ) : (
                 <>
                   <p className=" text-sm md:text-base headFont ">Start</p>
-                  <div class="absolute duration-300 inset-0 w-full h-full transition-all translate-x-[-100px]  group-hover:translate-x-0  group-hover:bg-white/40   rounded-2xl"></div>
+                  <div className="absolute duration-300 inset-0 w-full h-full transition-all translate-x-[-100px]  group-hover:translate-x-0  group-hover:bg-white/40   rounded-2xl"></div>
                 </>
               )}
             </button>
@@ -83,7 +84,6 @@ function App() {
         </div>
       )}
 
-      <Confetti active={pairsFound == 6} config={config} />
       <h1 className="md:text-2xl z-[1]  my-5 text-xl text-center headFont p-2 rounded-2xl border border-white/60 bg-red-600/30 ">
         Garry's Memory Game
       </h1>
@@ -108,28 +108,32 @@ function App() {
       <audio ref={cheerRef}>
         <source src={cheer}></source>
       </audio>
-      {pairsFound == 6  && (
+      {pairsFound == 6 && (
         <div
-        className={` absolute backdrop-blur-sm z-[999] w-full h-full flex justify-center items-center bg-black/50`}
-      >
-        <div className=" p-6 rounded-xl border border-slate-800 bg-[#121212]/70 max-w-[500px] flex justify-center items-center flex-col max-h-[380px]">
-          <img className="w-[180px] h-[200px] " src="https://media.tenor.com/nrJ0FfU9WQ0AAAAi/funny.gif" alt="" />
-          <h1 className=" headFont text-slate-100 mb-3 font-semibold tracking-tight text-sm md:text-base ">
-            Congratulations !!!
-          </h1>
-          <button
-            onClick={() => window.location.reload()}
-            class="group transition-all duration-300 ease-in rounded-2xl md:h-12 h-8 w-48 bg-sky-600 font-bold text-lg text-white relative overflow-hidden "
-          ><>
+          className={` absolute backdrop-blur-sm z-[999] w-full h-full flex justify-center items-center bg-black/50`}
+        >
+          <div className=" p-6 rounded-xl border border-slate-800 bg-[#121212]/70 max-w-[500px] flex justify-center items-center flex-col max-h-[380px]">
+            <img
+              className="w-[180px] h-[200px] "
+              src="https://media.tenor.com/nrJ0FfU9WQ0AAAAi/funny.gif"
+              alt=""
+            />
+            <h1 className=" headFont text-slate-100 mb-3 font-semibold tracking-tight text-sm md:text-base ">
+              Congratulations !!!
+            </h1>
+            <Confetti width={window.innerWidth} height={window.innerHeight} />
+            <button
+              onClick={() => window.location.reload()}
+              className="group transition-all duration-300 ease-in rounded-2xl md:h-12 h-8 w-48 bg-sky-600 font-bold text-lg text-white relative overflow-hidden "
+            >
+              <>
                 <p className="text-sm headFont ">Restart</p>
-                <div class="absolute duration-300 inset-0 w-full h-full transition-all translate-x-[-100px]  group-hover:translate-x-0  group-hover:bg-white/40   rounded-2xl"></div>
+                <div className="absolute duration-300 inset-0 w-full h-full transition-all translate-x-[-100px]  group-hover:translate-x-0  group-hover:bg-white/40   rounded-2xl"></div>
               </>
-   
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
       )}
-
     </div>
   );
 }
