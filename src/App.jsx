@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Cards from "./Comp/Cards";
-import cheer from "./Assets/cheers.mp3";
+import cheer from "./Assets/happy.mp3";
 import Confetti from "react-confetti";
 function App() {
   const cheerRef = useRef();
@@ -23,7 +23,7 @@ function App() {
   }, [pairsFound]);
   return (
     <div
-      className={`  font-raleway bg-[url('./Assets/GameBg.jpg')] bg-cover bg-center bg-no-repeat mix-blend-multiply relative overflow-hidden h-[100vh] w-full flex flex-col justify-center items-center   text-slate-100`}
+      className={`  font-raleway bg-[url('./Assets/GameBg-min.jpg')] bg-cover bg-center bg-no-repeat mix-blend-multiply relative overflow-hidden h-[100vh] w-full flex flex-col justify-center items-center   text-slate-100`}
     >
       {!modalRemoved && (
         <div
@@ -115,7 +115,7 @@ function App() {
           <div className=" p-6 rounded-xl border border-slate-800 bg-[#121212]/70 max-w-[500px] flex justify-center items-center flex-col max-h-[380px]">
             <img
               className="w-[180px] h-[200px] "
-              src="https://media.tenor.com/nrJ0FfU9WQ0AAAAi/funny.gif"
+              src="https://media.tenor.com/bWUeVRqW9-IAAAAi/fast-cat-cat-excited.gif"
               alt=""
             />
             <h1 className=" headFont text-slate-100 mb-3 font-semibold tracking-tight text-sm md:text-base ">
