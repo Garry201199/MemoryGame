@@ -2,9 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
+import { GameSettingsContextprovider } from './Context/GameSettingsContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <GameSettingsContextprovider>
+      <App />
+    </GameSettingsContextprovider>
   </React.StrictMode>,
 )

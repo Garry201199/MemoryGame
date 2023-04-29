@@ -1,54 +1,72 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { logoSrc } from "../Utils/data";
+import CardContext from "../Context/CardContext";
+import { reducerActions } from "../Context/CardReducer";
+import GameSettingsContext from "../Context/GameSettingsContext";
+import { GameSettingsReducerActions } from "../Context/GameSettingsReducer";
 
-const Cards = ({ setPairsFound , setTotalAttempts }) => {
-  const [imgArray, setImgArray] = useState([]);
-  const [firstCard, setFirstCard] = useState(null);
-  const [clickedCard, setClickedCard] = useState(null);
-  const [preventClick, setPreventC] = useState(false);
-  const shuffledArrayGen = useCallback(
-    (logoSrc) => {
-      const shuffledArray = [
-        ...logoSrc.sort((a, b) => 0.5 - Math.random()),
-        ...logoSrc.sort((a, b) => 0.5 - Math.random()),
-      ]; // const resultArray =[] // for (let i = 0; i < shuffledArray.length  ; i++) { //     resultArray.push({id: randomId + i , imgSrc:shuffledArray[i].img   }) // }
-      setImgArray(shuffledArray);
-    },
-    [logoSrc]
-  );
+const Cards = () => {
+  const {
+    state: { imgArray, firstCard, clickedCard, preventClick },
+    dispatch,
+    shuffledArrayGen
+  } = useContext(CardContext);
+  const { GameSettingsdispatch } = useContext(GameSettingsContext)
+   
   const handleClick = (e, i) => {
-    setTotalAttempts( (total)=> total+= 1 )
+    // setTotalAttempts((total) => (total += 1));
+    GameSettingsdispatch({type: GameSettingsReducerActions.SetTotalAttempts})
     if (preventClick || e.className.includes("flip")) {
       return;
     }
     e.className = e.className + " flip";
 
     if (!clickedCard) {
-      setFirstCard(e);
-      setClickedCard(i);
+      dispatch({ type: reducerActions.SetFirstCard, firstCard: e }),
+      dispatch({ type: reducerActions.setClickedCard, clickedCard: i });
+      // setCardInfo({ ...cardInfo, firstCard: e, clickedCard: i });
     } else {
+      console.log(clickedCard.num , i.num);
       clickedCard.num != i.num
-        ? (setPreventC(true),
+        ? ( 
+          dispatch({
+            type: reducerActions.setPreventClick,
+            preventClick: true,
+          }),
+          // setCardInfo({ ...cardInfo, preventClick: true }),
           setTimeout(() => {
             firstCard.className = firstCard.className
               .replace("flip", "")
               .trim(); //remove 1st cn
             e.className = e.className.replace("flip", "").trim(); //remove 2nd cn
-            setFirstCard(null);
-            setClickedCard(null);
-            setPreventC(false);
+            dispatch({ type: reducerActions.SetFirstCard, firstCard: null }),
+            dispatch({
+                type: reducerActions.setClickedCard,
+                clickedCard: null,
+              }),
+            dispatch({
+                type: reducerActions.setPreventClick,
+                preventClick: false,
+              });
+            // setCardInfo({
+            //   ...cardInfo,
+            //   firstCard: null,
+            //   clickedCard: null,
+            //   preventClick: false,
+            // });
           }, 1000))
-        : (setPairsFound((pairsFound) => (pairsFound += 1)),
-          setFirstCard(null),
-          setClickedCard(null));
+        : (
+          GameSettingsdispatch({type :  GameSettingsReducerActions.SetPairsFound  }),
+          // setPairsFound((pairsFound) => (pairsFound += 1)),
+          dispatch({ type: reducerActions.SetFirstCard, firstCard: null }),
+          dispatch({ type: reducerActions.setClickedCard, clickedCard: null }));
+      // setCardInfo({ ...cardInfo, firstCard: null, clickedCard: null })
     }
   };
-
   useEffect(() => {
     shuffledArrayGen(logoSrc);
   }, []);
   return (
-
     <div className=" backdrop-blur-sm z-[1] md:min-w-[700px] place-items-center grid md:grid-cols-4 grid-cols-3 md:gap-3 gap-2 md:p-6 p-3  bg-slate-100/20 rounded-2xl  min-h-fit md:h-[500px] ">
       {imgArray &&
         imgArray.map((i, index) => (
