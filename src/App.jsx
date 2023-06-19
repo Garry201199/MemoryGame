@@ -67,7 +67,7 @@ function App() {
         <source src={cheer}></source>
       </audio>
 
-      {pairsFound == 1 && (
+      {pairsFound == 6 && (
        <ResultModal />
       )}
     </div>
